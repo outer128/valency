@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>Valency - Welcome</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>VALENCY</h1>
+        <p>アクセスコードを入力してください</p>
+        <input type="password" id="password-input" placeholder="ACCESS CODE">
+        <button onclick="checkPassword()">ENTER</button>
+        <p id="error-message" class="error"></p>
+    </div>
+
+    <script>
+        function checkPassword() {
+            // ▼▼▼ ここに販売するアクセスコード（パスワード）を設定 ▼▼▼
+            const correctPassword = 'quest_pazzle'; 
+            // ▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲
+
+            const inputPassword = document.getElementById('password-input').value;
+            if (inputPassword === correctPassword) {
+                window.location.href = 'problem-01.html'; // 正解なら最初の問題へ
+            } else {
+                const errorMessage = document.getElementById('error-message');
+                errorMessage.textContent = 'アクセスコードが違います。';
+            }
+        }
+        // Enterキーでも送信できるようにする
+        document.getElementById('password-input').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                checkPassword();
+            }
+        });
+    </script>
+</body>
+</html>
