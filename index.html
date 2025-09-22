@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Valency - Welcome</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <img src="logo.png" alt="VALENCY Logo" class="logo">
+        <p>アクセスコードを入力してください</p>
+        <input type="password" id="password-input" placeholder="ACCESS CODE">
+        <button onclick="checkPassword()">ENTER</button>
+        <p id="error-message" class="error"></p>
+    </div>
+
+    <script>
+        function checkPassword() {
+            const correctPasswordHash = 'e4206d989b990e4c2d76efbb11184720533ea8d4eeff87d355a3c01bb3fa196b'; 
+
+            const inputPassword = document.getElementById('password-input').value;
+            const inputPasswordHash = CryptoJS.SHA256(inputPassword).toString();
+
+            if (inputPasswordHash === correctPasswordHash) {
+                window.location.href = 'problem-01.html';
+            } else {
+                document.getElementById('error-message').textContent = 'アクセスコードが違います。';
+            }
+        }
+        document.getElementById('password-input').addEventListener('keypress', e => { if (e.key === 'Enter') checkPassword(); });
+    </script>
+</body>
+</html>
