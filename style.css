@@ -1,4 +1,5 @@
-/* style.css */
+/*
+//style.css 
 body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
     display: flex;
@@ -64,4 +65,196 @@ button:hover { background-color: #185abc; }
     h2 { font-size: 1.3em; }
     .cell { width: 35px; height: 35px; }
     .number { font-size: 18px; }
+}
+
+*/
+
+
+
+/* style.css */
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    padding: 10px;
+    box-sizing: border-box;
+    /* 落ち着いた背景色に変更 */
+    background-color: #f4f4f4; 
+}
+
+.container {
+    width: 100%;
+    max-width: 600px;
+    background: white;
+    padding: 20px;
+    border-radius: 8px; /* 少し角を丸く */
+    /* 影を薄く */
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    text-align: center;
+    box-sizing: border-box;
+}
+
+h1, h2 {
+    color: #222; /* 少し濃く */
+}
+
+.logo {
+    max-width: 250px;
+    margin-bottom: 10px;
+}
+
+input[type="password"] {
+    width: 80%;
+    padding: 12px;
+    margin: 15px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+button {
+    padding: 12px 25px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    border: none;
+    /* モノトーンに変更 */
+    background-color: #333;
+    color: white;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    /* ホバー色もモノトーンに */
+    background-color: #555;
+}
+
+.error {
+    color: #d93025; /* エラー色は視認性のため赤のままにします */
+    font-weight: bold;
+    min-height: 1.2em;
+}
+
+#grid-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+#grid-inner {
+    display: grid;
+    /* 枠線を濃く */
+    border: 2px solid #333; 
+}
+
+/* === 塗りつぶし方式用のスタイルに変更 === */
+
+.cell {
+    width: 40px;
+    height: 40px;
+    box-sizing: border-box;
+    position: relative;
+    /* セル間の境界線を薄く */
+    border: 1px solid #eee;
+    /* 塗りつぶしのトランジション */
+    transition: background-color 0.2s ease;
+    /* カーソル形状を変更 */
+    cursor: cell;
+}
+
+/* 数字の入ったセル */
+.number-cell {
+    cursor: pointer; /* クリックできることを示す */
+    font-weight: bold;
+}
+
+/* (オプション) 選択中の数字マスをハイライト */
+.number-cell.selected {
+    /* モノトーンに合わせて枠線の色を変更 */
+    outline: 3px solid #555;
+    outline-offset: -3px;
+}
+
+.number {
+    font-size: 20px;
+    font-weight: bold;
+    /* JS側で色を付けるため、デフォルトは黒に */
+    color: black; 
+    
+    /* 塗りつぶされても数字が見えるように調整 */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none; /* 数字自体はクリックさせず、下のセルをクリックさせる */
+    
+    /* 白い縁取り (背景色と同化するのを防ぐ) */
+    text-shadow: 
+        -1px -1px 0 #fff,  
+         1px -1px 0 #fff,
+        -1px  1px 0 #fff,
+         1px  1px 0 #fff;
+}
+
+/* === 境界線(boundary)関連のスタイルは削除 === */
+/* .boundary { ... } */
+/* .h-boundary { ... } */
+/* .v-boundary { ... } */
+
+
+#message-area {
+    margin-top: 20px;
+    font-size: 1.2em;
+    font-weight: bold;
+    min-height: 1.5em;
+    /* JS側で色付けされるため、デフォルト色を指定（任意） */
+    color: #333;
+}
+
+#next-stage-link {
+    display: none;
+    margin-top: 15px;
+    font-size: 1.2em;
+    /* モノトーンのリンクに変更 */
+    color: #333;
+    text-decoration: underline;
+}
+
+.tweet-button {
+    display: inline-block;
+    /* モノトーンに変更 */
+    background-color: #555;
+    color: white;
+    padding: 10px 20px;
+    /* 他のボタンと形状を合わせる */
+    border-radius: 5px; 
+    text-decoration: none;
+    font-weight: bold;
+    margin-top: 20px;
+    transition: background-color 0.3s;
+}
+
+.tweet-button:hover {
+    background-color: #333;
+}
+
+@media (max-width: 640px) {
+    .container {
+        padding: 15px;
+    }
+    h1 { font-size: 1.8em; }
+    h2 { font-size: 1.3em; }
+
+    /* スマートフォン表示のセルサイズ調整 */
+    .cell {
+        width: 35px;
+        height: 35px;
+    }
+    .number {
+        font-size: 18px;
+    }
 }
