@@ -1,3 +1,4 @@
+
 /*
 // game-logic.js
 let puzzleData;
@@ -210,7 +211,12 @@ function toggleCellColor(cell, cellIndex) {
 
     // 既に現在の区域として塗られているか？
     if (userRegions[cellIndex] === currentRegionId) {
-        // 解除する (白に戻す)
+        
+        // 色の解除（トグルオフ）を許可しない
+        if (numberCells[cellIndex]) {
+            return; // 何もせず終了
+        }
+        // 数字マス以外なら解除する (白に戻す)
         cell.style.backgroundColor = '';
         delete userRegions[cellIndex];
     }
