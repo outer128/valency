@@ -82,9 +82,6 @@ function checkAnswer() {
 
 
 
-
-
-
 // game-logic.js
 let puzzleData;
 // userSolution (境界線セット) は不要に
@@ -159,7 +156,7 @@ function initGame(data) {
 
         const targetCell = cells[cellIndex];
         targetCell.classList.add('number-cell'); // 数字マス用のクラス
-        // targetCell.style.backgroundColor = color; // 初期色を設定
+        targetCell.style.backgroundColor = color; // 初期色を設定
 
         const numberSpan = document.createElement('span');
         numberSpan.className = 'number';
@@ -167,7 +164,11 @@ function initGame(data) {
         targetCell.appendChild(numberSpan);
 
         // 数字マスの背景色ではなく、数字自体に色を付ける場合（こちらを推奨）
-        numberSpan.style.color = color;
+        numberSpan.style.backgroundColor = color;
+        // ★ 数字の色も設定（もし背景色と区別したい場合。背景色と同じでも良い）
+        numberSpan.style.color = 'white'; // 数字マス背景色に対して見やすいように白に
+        // 数字の白い縁取りは、背景色とのコントラストがはっきりするため不要かもしれません。
+        // 必要であればCSSで調整してください。
         // もし数字マス自体の背景を塗りたい場合は、上のコメントアウトを解除し、CSSで .number の色を調整してください
     });
 }
@@ -187,7 +188,7 @@ function handleCellClick(cell) {
         cell.classList.add('selected');
 
         // 数字マス自体を塗る/解除する処理（もし数字マス自身もクリックで色付けする場合）
-        // toggleCellColor(cell, cellIndex); 
+        toggleCellColor(cell, cellIndex); 
 
     } 
     // 2. クリックされたのが数字のないマスの場合
