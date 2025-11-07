@@ -4,6 +4,7 @@ html, body {
     overflow-x: hidden;
 }
 
+/*
 body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
     display: flex;
@@ -16,6 +17,36 @@ body {
     /* 落ち着いた背景色に変更 */
     background-color: #f4f4f4; 
 }
+*/
+
+/* style.css */
+
+/* 修正前 (既存の body スタイル) */
+/*
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0; 
+    box-sizing: border-box;
+    background-color: #f4f4f4; 
+}
+*/
+
+/* 修正後 */
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    /* display: flex 関連を削除 */
+    min-height: 100vh;
+    margin: 0;
+    /* 上下に余白を持たせる (上下中央の代わり) */
+    padding: 20px 0; 
+    box-sizing: border-box;
+    background-color: #f4f4f4; 
+}
 
 .container {
     width: 100%;
@@ -27,6 +58,8 @@ body {
     box-shadow: 0 2px 8px rgba(0,0,0,0.05);
     text-align: center;
     box-sizing: border-box;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 h1, h2 {
@@ -172,6 +205,15 @@ button:hover {
 
 .tweet-button:hover {
     background-color: #333;
+}
+
+@media (max-width: 600px) {
+    .container {
+        /* 左右に10pxの余白を設け、コンテナの幅を調整 */
+        margin-left: 10px;
+        margin-right: 10px;
+        width: auto; /* 100%を解除し、マージン計算に任せる */
+    }
 }
 
 @media (max-width: 640px) {
