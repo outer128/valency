@@ -63,7 +63,7 @@ function initGame(data) {
     // 数字の配置と色分け
     puzzleData.numbers.forEach((num, index) => {
         const cellIndex = num.row * puzzleData.width + num.col;
-        const color = regionColors[index % regionColors.length]; // 色を割り当て
+        const color = num.color || `hsl(${Math.random() * 360}, 70%, 75%)`;
 
         // 数字マスの情報を保存
         numberCells[cellIndex] = { value: num.value, color: color };
@@ -117,35 +117,44 @@ function handleCellClick(cell) {
     }
 }
 
+// game-logic.js 内
+
 // セルの色をトグルする補助関数
 function toggleCellColor(cell, cellIndex) {
+    // currentRegionIdがnullの場合は処理しない
+    if (currentRegionId === null) return;
+    
     const currentColor = numberCells[currentRegionId].color;
 
-    // 既に現在の区域として塗られているか？
-    if (userRegions[cellIndex] === currentRegionId) 
-        if (numberCells[cellIndex]) {
-            return; // 何もせず終了
+    // クリックされたセルが「数字マス」である場合（数字は常に色が塗られた状態を維持）
+    if (numberCells[cellIndex]) {
+        // 現在の区域と同じ色で塗られているなら、何もしない（キャンセル不可）
+        if (userRegions[cellIndex] === currentRegionId) {
+            return;
         }
-        // 解除する (白に戻す)
-        cell.style.backgroundColor = '';
-        delete userRegions[cellIndex];
-    }
-    // 既に *別の* 区域として塗られているか？
-    else if (userRegions[cellIndex] && userRegions[cellIndex] !== currentRegionId) {
+        
+        // 別の色で塗られている数字マスをクリックした場合は、選択中の色を更新し、その色で塗る
+        // （数字マスがクリックされたときは handleCellClick側で currentRegionId が更新されているため、この処理は基本的に不要だが、念のため）
         userRegions[cellIndex] = currentRegionId;
         cell.style.backgroundColor = currentColor;
-    }
-    // まだ塗られていない場合
+        
+    } 
+    // クリックされたセルが「数字マスではない」場合
     else {
-        // 塗る
-        userRegions[cellIndex] = currentRegionId;
-        cell.style.backgroundColor = currentColor;
+        // 既に何らかの区域として塗られているか？
+        if (userRegions[cellIndex]) {
+            // ★★★ 変更点 ★★★
+            // 数字マスではないマスは、現在の選択色が何であれ、クリックでキャンセル（白に戻す）できる
+            cell.style.backgroundColor = '';
+            delete userRegions[cellIndex];
+            
+        } else {
+            // まだ塗られていない場合 -> 塗る
+            userRegions[cellIndex] = currentRegionId;
+            cell.style.backgroundColor = currentColor;
+        }
     }
 }
-
-
-// toggleBoundary 関数は不要になったので削除
-// function toggleBoundary(boundaryElement) { ... }
 
 function checkAnswer() {
     const messageArea = document.getElementById('message-area');
