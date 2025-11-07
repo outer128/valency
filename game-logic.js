@@ -96,7 +96,10 @@ let currentRegionId = null;
 // 数字マスの情報（値と色）を保持
 // { [cellIndex]: { value: num.value, color: '#...' } }
 let numberCells = {};
+let gameCleared = false; // ゲームクリア状態を追跡
 
+
+/*
 // 区域ごとに割り当てる色のリスト
 const regionColors = [
     '#FFADAD', // Red
@@ -111,44 +114,47 @@ const regionColors = [
     '#FFFACD'  // LemonChiffon
 ];
 
+*/
+
 // ゲームを初期化する関数
 function initGame(data) {
+    if (!data) return;
     puzzleData = data;
     // 状態をリセット
     userRegions = {};
     currentRegionId = null;
     numberCells = {};
+    gameCleared = false;
+    document.getElementById('message-area').textContent = '';
+    document.getElementById('next-stage-link').innerHTML = ''; // リンクを非表示に
 
     const gridInner = document.getElementById('grid-inner');
-    gridInner.innerHTML = '';
-    gridInner.style.gridTemplateColumns = `repeat(${puzzleData.width}, 40px)`;
-    gridInner.style.gridTemplateRows = `repeat(${puzzleData.height}, 40px)`;
+    if (!gridInner) return;
+    
+    gridInner.innerHTML = ''; 
+    gridInner.style.gridTemplateColumns = `repeat(${puzzleData.width}, 1fr)`;
 
     const cells = []; // セルのDOM要素を一時的に保持
 
-    for (let r = 0; r < puzzleData.height; r++) {
-        for (let c = 0; c < puzzleData.width; c++) {
-            const cell = document.createElement('div');
-            cell.classList.add('cell');
-            const cellIndex = r * puzzleData.width + c;
-            cell.dataset.index = cellIndex; // cellIndexをdata属性として保持
+    for (let i = 0; i < puzzleData.width * puzzleData.height; i++) {
+        const cell = document.createElement('div');
+        cell.className = 'cell';
+        cell.dataset.index = i; 
+        
+        // セルにクリックイベントを設定
+        cell.addEventListener('click', handleCellClick); 
 
-            // 境界線(boundary)を生成するロジックを削除
-            // if (r > 0) { ... }
-            // if (c > 0) { ... }
-            
-            // セル自体にクリックイベントを設定
-            cell.addEventListener('click', () => handleCellClick(cell));
-
-            gridInner.appendChild(cell);
-            cells.push(cell); // 配列に追加
-        }
+        gridInner.appendChild(cell);
+        cells.push(cell);
     }
 
     // 数字の配置と色分け
-    puzzleData.numbers.forEach((num, index) => {
+    puzzleData.numbers.forEach(num => { 
         const cellIndex = num.row * puzzleData.width + num.col;
-        const color = regionColors[index % regionColors.length]; // 色を割り当て
+        if (cellIndex >= puzzleData.width * puzzleData.height) return;
+
+        // データに color プロパティがある場合はそれを使用
+        const color = num.color; 
 
         // 数字マスの情報を保存
         numberCells[cellIndex] = { value: num.value, color: color };
@@ -156,23 +162,173 @@ function initGame(data) {
         userRegions[cellIndex] = cellIndex;
 
         const targetCell = cells[cellIndex];
-        targetCell.classList.add('number-cell'); // 数字マス用のクラス
-        targetCell.style.backgroundColor = color; // 初期色を設定
+        targetCell.classList.add('number-cell'); 
+        
+        // 初期背景色を設定
+        targetCell.style.backgroundColor = color; 
 
         const numberSpan = document.createElement('span');
         numberSpan.className = 'number';
         numberSpan.textContent = num.value;
         targetCell.appendChild(numberSpan);
-
-        // 数字マスの背景色ではなく、数字自体に色を付ける場合（こちらを推奨）
-        numberSpan.style.backgroundColor = color;
-        // ★ 数字の色も設定（もし背景色と区別したい場合。背景色と同じでも良い）
-        numberSpan.style.color = 'white'; // 数字マス背景色に対して見やすいように白に
-        // 数字の白い縁取りは、背景色とのコントラストがはっきりするため不要かもしれません。
-        // 必要であればCSSで調整してください。
-        // もし数字マス自体の背景を塗りたい場合は、上のコメントアウトを解除し、CSSで .number の色を調整してください
     });
 }
+
+
+// セルの色をトグルする補助関数
+function toggleCellColor(cell, cellIndex) {
+    if (currentRegionId === null) return;
+    
+    const currentColor = numberCells[currentRegionId].color;
+
+    // A. クリックされたセルが「数字マス」である場合
+    if (numberCells[cellIndex]) {
+        // ★ご要望: 数字マスはキャンセルされない（無反応）
+        // 常に上書き（再塗布）することで無反応に見せる
+        cell.style.backgroundColor = currentColor; 
+        return; 
+    } 
+    
+    // B. クリックされたセルが「非数字マス」である場合
+    
+    if (userRegions[cellIndex]) {
+        // 既に塗られている場合
+
+        // 塗られている区域が、現在選択中の区域と同じか？
+        if (userRegions[cellIndex] === currentRegionId) {
+            // １．同じ色で塗られている場合 -> 解除（キャンセル）する
+            cell.style.backgroundColor = '';
+            delete userRegions[cellIndex];
+        } else {
+            // ２．違う色で塗られている場合 -> 上書きする
+            userRegions[cellIndex] = currentRegionId;
+            cell.style.backgroundColor = currentColor;
+        }
+        
+    } else {
+        // まだ塗られていないマスの場合 -> 塗る
+        userRegions[cellIndex] = currentRegionId;
+        cell.style.backgroundColor = currentColor;
+    }
+}
+
+
+// クリックイベントハンドラ
+function handleCellClick(event) {
+    // ★追記：勝利状態の場合、操作を即座に中断
+    if (gameCleared) {
+        return; 
+    }
+
+    const cell = event.currentTarget;
+    const cellIndex = parseInt(cell.dataset.index);
+
+    // 1. クリックされたのが数字マスの場合
+    if (numberCells[cellIndex]) {
+        currentRegionId = cellIndex; // 選択中の区域を更新
+        
+        // 視覚的なハイライトを更新
+        document.querySelectorAll('.number-cell').forEach(nc => nc.classList.remove('selected'));
+        cell.classList.add('selected');
+
+        // 数字マス自体も色を塗る/上書きする
+        toggleCellColor(cell, cellIndex); 
+    } 
+    // 2. クリックされたのが非数字マスの場合
+    else {
+        // ★ご要望: 数字マスを選択していない状態で非数字マスを選択すると、何も起こらない
+        if (currentRegionId !== null) {
+            // 選択中の数字マスがある場合のみ、色をトグルする
+            toggleCellColor(cell, cellIndex);
+        }
+    }
+}
+
+
+// 勝利判定ロジック (checkAnswer()から呼ばれる)
+function checkAnswer() {
+    // 既にクリアしている場合は何もしない
+    if (gameCleared) return;
+    
+    const messageArea = document.getElementById('message-area');
+
+    // 1. 全てのセルが塗られているか？ (簡易チェック)
+    const totalCells = puzzleData.width * puzzleData.height;
+    if (Object.keys(userRegions).length !== totalCells) {
+        messageArea.textContent = 'まだ全てのマスが塗りつぶされていません。'; 
+        return;
+    }
+
+    // 2. 区域ごとのセル数が正しいか？
+    let countsMatch = true;
+    for (const regionId in numberCells) {
+        const requiredCount = numberCells[regionId].value;
+        const actualCount = Object.values(userRegions).filter(id => id === parseInt(regionId)).length;
+
+        if (actualCount !== requiredCount) {
+            countsMatch = false;
+            break;
+        }
+    }
+    if (!countsMatch) {
+        messageArea.textContent = '残念、区域のマス数が合っていません。';
+        return;
+    }
+
+    // 3. 正解データとユーザーの塗りが一致するか？ (最終チェック)
+    let solutionMatch = true;
+    for (let i = 0; i < totalCells; i++) {
+        // solution配列は cellIndex と同じ順序で並んでいる前提
+        const correctRegionId = puzzleData.solution[i];
+        const userRegionId = userRegions[i] ? userRegions[i] : null;
+
+        if (userRegionId !== correctRegionId) {
+            solutionMatch = false;
+            break;
+        }
+    }
+
+
+    if (solutionMatch) {
+        // ★勝利処理
+        gameCleared = true;
+        messageArea.textContent = 'クリア！おめでとうございます！';
+        
+        // 次の問題へのリンクを動的に表示
+        const nextLinkArea = document.getElementById('next-stage-link');
+        nextLinkArea.innerHTML = `<a href="problem-02.html">次の問題へ進む</a>`;
+
+    } else {
+        messageArea.textContent = '残念、どこか間違っています。'; 
+    }
+}
+
+// 盤面外クリックによる選択解除の制御
+document.addEventListener('click', (event) => {
+    // クリックされた要素がグリッドコンテナの子孫要素でないか、またはボタンではないかを確認
+    const gridContainer = document.getElementById('grid-container');
+    const button = document.querySelector('button');
+
+    // 盤面外、かつボタン外のクリックであった場合に選択解除
+    if (currentRegionId !== null && 
+        !(gridContainer && gridContainer.contains(event.target)) &&
+        !(button && button.contains(event.target))) 
+    {
+        currentRegionId = null;
+        document.querySelectorAll('.number-cell').forEach(nc => nc.classList.remove('selected'));
+    }
+});
+
+
+// === 初期化実行 ===
+document.addEventListener('DOMContentLoaded', () => {
+    // problem-01.html などに定義されている puzzleData を使用
+    if (typeof puzzleData !== 'undefined') {
+        initGame(puzzleData);
+    }
+});
+
+/*
 
 // セルがクリックされたときの処理
 function handleCellClick(cell) {
@@ -256,7 +412,7 @@ function toggleCellColor(cell, cellIndex) {
 }
 
 
-*/
+/*
 
 // セルの色をトグルする補助関数
 function toggleCellColor(cell, cellIndex) {
@@ -293,7 +449,7 @@ function toggleCellColor(cell, cellIndex) {
 
 
 
- /*
+ 
 // セルの色をトグルする補助関数
 function toggleCellColor(cell, cellIndex) {
     const currentColor = numberCells[currentRegionId].color;
@@ -325,7 +481,7 @@ function toggleCellColor(cell, cellIndex) {
     }
 }
 
-*/
+
 
 // toggleBoundary 関数は不要になったので削除
 // function toggleBoundary(boundaryElement) { ... }
@@ -397,3 +553,5 @@ function checkAnswer() {
         messageArea.style.color = "#d93025";
     }
 }
+
+*/
