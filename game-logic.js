@@ -176,6 +176,13 @@ function initGame(data) {
 
 // セルがクリックされたときの処理
 function handleCellClick(cell) {
+    // ★★★ 追記：勝利状態の場合、操作を即座に中断 ★★★
+    if (checkWin()) {
+        return; 
+    }
+    // ★★★ 追記ここまで ★★★
+
+    const cell = event.currentTarget;
     const cellIndex = parseInt(cell.dataset.index, 10);
 
     // 1. クリックされたのが数字マスの場合
@@ -206,10 +213,50 @@ function handleCellClick(cell) {
 }
 
 
+// game-logic.js 内
+
+// セルの色をトグルする補助関数
+function toggleCellColor(cell, cellIndex) {
+    // currentRegionIdがnull（数字マスが未選択）の場合は処理しない
+    if (currentRegionId === null) return;
+    
+    // 現在選択中の区域の色を取得
+    const currentColor = numberCells[currentRegionId].color;
+
+    // A. クリックされたセルが「数字マス」である場合
+    if (numberCells[cellIndex]) {
+        // ★★★ 修正点: 数字マスは常に上書き（キャンセル不可） ★★★
+        userRegions[cellIndex] = currentRegionId;
+        cell.style.backgroundColor = currentColor; 
+        return; // 数字マスはここで処理終了
+    } 
+    
+    // B. クリックされたセルが「非数字マス」である場合 (ご要望のロジックを適用)
+    
+    // 既に何らかの区域として塗られているか？
+    if (userRegions[cellIndex]) {
+        // 既に塗られている場合
+
+        // １．塗られている区域が、現在選択中の区域と同じか？
+        if (userRegions[cellIndex] === currentRegionId) {
+            // 同じ色で塗られている場合 -> 解除（キャンセル）する
+            cell.style.backgroundColor = '';
+            delete userRegions[cellIndex];
+        } else {
+            // ２．違う色で塗られている場合 -> 上書きする
+            userRegions[cellIndex] = currentRegionId;
+            cell.style.backgroundColor = currentColor;
+        }
+        
+    } else {
+        // まだ塗られていないマスの場合 -> 塗る
+        userRegions[cellIndex] = currentRegionId;
+        cell.style.backgroundColor = currentColor;
+    }
+}
 
 
-// game-logic.js 内
-// game-logic.js 内
+/*
 
 // セルの色をトグルする補助関数
 function toggleCellColor(cell, cellIndex) {
@@ -240,6 +287,9 @@ function toggleCellColor(cell, cellIndex) {
     }
 }
 
+*/
+
+///旧版
 
 
 
