@@ -72,7 +72,6 @@ function initGame(data) {
 
         const targetCell = cells[cellIndex];
         targetCell.classList.add('number-cell'); // 数字マス用のクラス
-        // targetCell.style.backgroundColor = color; // 初期色を設定
 
         const numberSpan = document.createElement('span');
         numberSpan.className = 'number';
@@ -82,7 +81,7 @@ function initGame(data) {
         targetCell.style.backgroundColor = color;
 
         // 数字マスの背景色ではなく、数字自体に色を付ける場合（こちらを推奨）
-        numberSpan.style.color = color;
+        numberSpan.style.color = 'white';
         // もし数字マス自体の背景を塗りたい場合は、上のコメントアウトを解除し、CSSで .number の色を調整してください
     });
 }
@@ -123,18 +122,18 @@ function toggleCellColor(cell, cellIndex) {
     const currentColor = numberCells[currentRegionId].color;
 
     // 既に現在の区域として塗られているか？
-    if (userRegions[cellIndex] === currentRegionId) {
+    if (userRegions[cellIndex] === currentRegionId) 
+        if (numberCells[cellIndex]) {
+            return; // 何もせず終了
+        }
         // 解除する (白に戻す)
         cell.style.backgroundColor = '';
         delete userRegions[cellIndex];
     }
     // 既に *別の* 区域として塗られているか？
     else if (userRegions[cellIndex] && userRegions[cellIndex] !== currentRegionId) {
-        // (仕様) 上書きを許可しない場合
-        alert("そのマスは既に他の区域に属しています。");
-        // (仕様) 上書きを許可する場合
-        // userRegions[cellIndex] = currentRegionId;
-        // cell.style.backgroundColor = currentColor;
+        userRegions[cellIndex] = currentRegionId;
+        cell.style.backgroundColor = currentColor;
     }
     // まだ塗られていない場合
     else {
