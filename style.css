@@ -77,6 +77,13 @@ button:hover { background-color: #185abc; }
     box-sizing: border-box; 
 }
 
+html, body {
+    /* 横方向のコンテンツがあふれても、画面外に隠す */
+    overflow-x: hidden; 
+    /* bodyは画面幅いっぱいに設定 */
+    width: 100%;
+}
+
 body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
     display: flex;
