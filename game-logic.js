@@ -212,7 +212,7 @@ function handleCellClick(cell) {
     }
 }
 
-
+/*
 // game-logic.js 内
 
 // セルの色をトグルする補助関数
@@ -256,7 +256,7 @@ function toggleCellColor(cell, cellIndex) {
 }
 
 
-/*
+*/
 
 // セルの色をトグルする補助関数
 function toggleCellColor(cell, cellIndex) {
@@ -287,7 +287,7 @@ function toggleCellColor(cell, cellIndex) {
     }
 }
 
-*/
+
 
 ///旧版
 
