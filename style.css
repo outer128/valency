@@ -1,5 +1,4 @@
-/*
-//style.css 
+/* style.css */
 body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
     display: flex;
@@ -8,90 +7,6 @@ body {
     min-height: 100vh;
     margin: 0;
     padding: 10px;
-    box-sizing: border-box;
-    background-color: #f0f2f5;
-}
-.container {
-    width: 100%;
-    max-width: 600px;
-    background: white;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-    text-align: center;
-    box-sizing: border-box;
-}
-h1, h2 { color: #333; }
-.logo { max-width: 250px; margin-bottom: 10px; }
-input[type="password"] {
-    width: 80%;
-    padding: 12px;
-    margin: 15px 0;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 16px;
-}
-button {
-    padding: 12px 25px;
-    font-size: 16px;
-    cursor: pointer;
-    border-radius: 5px;
-    border: none;
-    background-color: #1a73e8;
-    color: white;
-    transition: background-color 0.3s;
-}
-button:hover { background-color: #185abc; }
-.error { color: #d93025; font-weight: bold; min-height: 1.2em; }
-#grid-container { display: flex; justify-content: center; margin-top: 20px; margin-bottom: 20px; } 
-#grid-inner { display: grid; border: 2px solid #555; }
-.cell { width: 40px; height: 40px; box-sizing: border-box; position: relative; }
-.number { font-size: 20px; font-weight: bold; color: #333; pointer-events: none; }
-
-.boundary { position: absolute; background-color: rgba(200, 200, 200, 0.5); transition: background-color 0.1s; }
-.boundary:hover { background-color: #aaaaaa; }
-.boundary.selected { background-color: #000000; }
-
-.h-boundary { width: 100%; height: 10px; top: -5px; left: 0; cursor: pointer; }
-.v-boundary { width: 10px; height: 100%; top: 0; left: -5px; cursor: pointer; }
-#message-area { margin-top: 20px; font-size: 1.2em; font-weight: bold; min-height: 1.5em; }
-#next-stage-link { display: none; margin-top: 15px; font-size: 1.2em; }
-.tweet-button { display: inline-block; background-color: #1DA1F2; color: white; padding: 10px 20px; border-radius: 20px; text-decoration: none; font-weight: bold; margin-top: 20px; }
-.tweet-button:hover { background-color: #0c85d0; }
-
-@media (max-width: 640px) {
-    .container { padding: 15px; }
-    h1 { font-size: 1.8em; }
-    h2 { font-size: 1.3em; }
-    .cell { width: 35px; height: 35px; }
-    .number { font-size: 18px; }
-}
-
-*/
-
-
-
-/* style.css */
-
-{
-    box-sizing: border-box; 
-}
-
-html, body {
-    /* 横方向のコンテンツがあふれても、画面外に隠す */
-    overflow-x: hidden; 
-    /* bodyは画面幅いっぱいに設定 */
-    width: 100%;
-}
-
-body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    margin: 0;
-    padding: 0;
     box-sizing: border-box;
     /* 落ち着いた背景色に変更 */
     background-color: #f4f4f4; 
@@ -195,7 +110,7 @@ button:hover {
     font-size: 20px;
     font-weight: bold;
     /* JS側で色を付けるため、デフォルトは黒に */
-    color: white; 
+    color: black; 
     
     /* 塗りつぶされても数字が見えるように調整 */
     position: absolute;
@@ -206,10 +121,10 @@ button:hover {
     
     /* 白い縁取り (背景色と同化するのを防ぐ) */
     text-shadow: 
-        -1px -1px 0 #000000,  
-         1px -1px 0 #000000,
-        -1px  1px 0 #000000,
-         1px  1px 0 #000000;
+        -1px -1px 0 #fff,  
+         1px -1px 0 #fff,
+        -1px  1px 0 #fff,
+         1px  1px 0 #fff;
 }
 
 /* === 境界線(boundary)関連のスタイルは削除 === */
@@ -254,11 +169,19 @@ button:hover {
     background-color: #333;
 }
 
-
 @media (max-width: 640px) {
-    .container { padding: 15px; }
+    .container {
+        padding: 15px;
+    }
     h1 { font-size: 1.8em; }
     h2 { font-size: 1.3em; }
-    .cell { width: 35px; height: 35px; }
-    .number { font-size: 18px; }
+
+    /* スマートフォン表示のセルサイズ調整 */
+    .cell {
+        width: 35px;
+        height: 35px;
+    }
+    .number {
+        font-size: 18px;
+    }
 }
