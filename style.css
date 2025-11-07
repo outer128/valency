@@ -110,7 +110,7 @@ button:hover {
     font-size: 20px;
     font-weight: bold;
     /* JS側で色を付けるため、デフォルトは黒に */
-    /*color: black; */
+    color: white; 
     
     /* 塗りつぶされても数字が見えるように調整 */
     position: absolute;
@@ -121,10 +121,10 @@ button:hover {
     
     /* 白い縁取り (背景色と同化するのを防ぐ) */
     text-shadow: 
-        -1px -1px 0 #fff,  
-         1px -1px 0 #fff,
-        -1px  1px 0 #fff,
-         1px  1px 0 #fff;
+        -1px -1px 0 #000,  
+         1px -1px 0 #000,
+        -1px  1px 0 #000,
+         1px  1px 0 #000;
 }
 
 /* === 境界線(boundary)関連のスタイルは削除 === */
