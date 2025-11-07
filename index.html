@@ -1,46 +1,50 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Valency - Welcome</title>
-    <link rel="stylesheet" href="style.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Valency - Welcome</title>
+    <link rel="stylesheet" href="style.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
 </head>
 <body>
-    <div class="container">
-        <img src="logo.png" alt="VALENCY Logo" class="logo">
-        <p>アクセスコードを入力してください</p>
-        <input type="password" id="password-input" placeholder="ACCESS CODE">
-        <button onclick="checkPassword()">ENTER</button>
-        <p id="error-message" class="error"></p>
-    </div>
+    <div class="container">
+        <img src="logo.png" alt="VALENCY Logo" class="logo">
+        <h2>パズルゲーム Valency へようこそ</h2>
+        <p>アクセスコードを入力してください</p>
+        <input type="password" id="password-input" placeholder="ACCESS CODE">
+        <button onclick="checkPassword()">ENTER</button>
+        <p id="error-message" class="error"></p>
+    </div>
 
-    <script>
-    function checkPassword() {
-        // パスワード: V4L3NCY (スペースなし)
-        const correctPasswordHash = 'd49926839e557f920f7895e3ed5c5ccff191396b797a213e2f5f6412f8666579'; 
+    <script>
+        // ★ここに、ご自身で計算したSHA-256ハッシュ値（16進数）を貼り付けてください。
+        const correctPasswordHash = 'c7509f40453f92e3469603297c9e4b986ebd6e122018bdece95f56eaa9abda2d';  
 
-        const inputPassword = document.getElementById('password-input').value;
-        
-        // ★★★ デバッグ用の行を追加 ★★★
-        console.log("入力文字列:", `[${inputPassword}]`); // 入力された文字列を[]で囲んで表示
-        
-        // ★★★ 暫定修正案：入力からすべての空白文字と改行を削除（もし誤って入っていた場合） ★★★
-        // inputPassword = inputPassword.trim().replace(/\s/g, ''); 
-        
-        const inputPasswordHash = CryptoJS.SHA256(inputPassword).toString();
-        
-        // ★★★ デバッグ用の行を追加 ★★★
-        console.log("計算されたハッシュ:", inputPasswordHash);
-        console.log("正解ハッシュ:  ", correctPasswordHash);
+        function checkPassword() {
+            let inputPassword = document.getElementById('password-input').value;
 
-        if (inputPasswordHash === correctPasswordHash) {
-            window.location.href = 'problem-01.html';
-        } else {
-            document.getElementById('error-message').textContent = 'アクセスコードが違います。';
-        }
-    }
-    </script>
+            // 入力値のクリーンアップ: 前後の空白と途中の空白を全て削除
+            inputPassword = inputPassword.trim().replace(/\s/g, ''); 
+
+            // SHA-256でハッシュ化（16進数文字列に変換）
+            const inputPasswordHash = CryptoJS.SHA256(inputPassword).toString();
+
+            if (inputPasswordHash === correctPasswordHash) {
+                // 認証成功: 次のページへ遷移
+                window.location.href = 'problem-01.html';
+            } else {
+                // 認証失敗: エラーメッセージを表示
+                document.getElementById('error-message').textContent = 'アクセスコードが違います。';
+            }
+        }
+        
+        // Enterキーでチェックを実行
+        document.getElementById('password-input').addEventListener('keypress', e => { 
+            if (e.key === 'Enter') {
+                checkPassword();
+            }
+        });
+    </script>
 </body>
 </html>
