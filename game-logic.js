@@ -79,6 +79,8 @@ function initGame(data) {
         numberSpan.textContent = num.value;
         targetCell.appendChild(numberSpan);
 
+        targetCell.style.backgroundColor = color;
+
         // 数字マスの背景色ではなく、数字自体に色を付ける場合（こちらを推奨）
         numberSpan.style.color = color;
         // もし数字マス自体の背景を塗りたい場合は、上のコメントアウトを解除し、CSSで .number の色を調整してください
@@ -100,7 +102,7 @@ function handleCellClick(cell) {
         cell.classList.add('selected');
 
         // 数字マス自体を塗る/解除する処理（もし数字マス自身もクリックで色付けする場合）
-        // toggleCellColor(cell, cellIndex); 
+        toggleCellColor(cell, cellIndex); 
 
     } 
     // 2. クリックされたのが数字のないマスの場合
