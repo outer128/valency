@@ -221,23 +221,16 @@ function toggleCellColor(cell, cellIndex) {
 
     // クリックされたセルが「数字マス」である場合
     if (numberCells[cellIndex]) {
-        // 数字マスは常にその区域の色で塗られた状態を維持する（クリックされても色を上書きする）
-        userRegions[cellIndex] = currentRegionId;
-        cell.style.backgroundColor = currentColor;
-        
-        // ★ 数字マスがクリックされた際は、色を上書きするだけで、これ以上特別な処理は不要
-        return;
-    } 
-    
-    // クリックされたセルが「数字マスではない」場合
-    
-    // 既に何らかの区域として塗られているか？
-    if (userRegions[cellIndex]) {
-        // １．すでに色が塗られている場合 -> 色を上書きする
-        // 別の色で塗られていても、問答無用で現在の色に上書きします。
-
-        userRegions[cellIndex] = currentRegionId;
-        cell.style.backgroundColor = currentColor;
+        // 既に塗られている区域が、現在選択中の区域と同じか？
+        if (userRegions[cellIndex] === currentRegionId) {
+            // １．同じ色で塗られている場合 -> 解除（キャンセル）する
+            cell.style.backgroundColor = '';
+            delete userRegions[cellIndex];
+        } else {
+            // ２．違う色で塗られている場合 -> 上書きする
+            userRegions[cellIndex] = currentRegionId;
+            cell.style.backgroundColor = numberCells[currentRegionId].color;
+        }
         
     } else {
         // ２．何も塗られていないマスの場合 -> 塗る
