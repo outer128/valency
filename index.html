@@ -20,7 +20,9 @@
         function checkPassword() {
             const correctPasswordHash = 'd49926839e557f920f7895e3ed5c5ccff191396b797a213e2f5f6412f8666579'; 
 
-            const inputPassword = document.getElementById('password-input').value;
+            let inputPassword = document.getElementById('password-input').value;
+            inputPassword = inputPassword.replace(/\s/g, '');
+            
             const inputPasswordHash = CryptoJS.SHA256(inputPassword).toString();
 
             if (inputPasswordHash === correctPasswordHash) {
