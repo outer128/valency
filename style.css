@@ -247,19 +247,11 @@ button:hover {
     background-color: #333;
 }
 
+
 @media (max-width: 640px) {
-    .container {
-        padding: 15px;
-    }
+    .container { padding: 15px; }
     h1 { font-size: 1.8em; }
     h2 { font-size: 1.3em; }
-
-    /* スマートフォン表示のセルサイズ調整 */
-    .cell {
-        width: 35px;
-        height: 35px;
-    }
-    .number {
-        font-size: 18px;
-    }
+    .cell { width: 35px; height: 35px; }
+    .number { font-size: 18px; }
 }
