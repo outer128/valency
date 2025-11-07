@@ -17,21 +17,30 @@
     </div>
 
     <script>
-        function checkPassword() {
-            const correctPasswordHash = 'd49926839e557f920f7895e3ed5c5ccff191396b797a213e2f5f6412f8666579'; 
+    function checkPassword() {
+        // パスワード: V4L3NCY (スペースなし)
+        const correctPasswordHash = 'd49926839e557f920f7895e3ed5c5ccff191396b797a213e2f5f6412f8666579'; 
 
-            let inputPassword = document.getElementById('password-input').value;
-            inputPassword = inputPassword.replace(/\s/g, '');
-            
-            const inputPasswordHash = CryptoJS.SHA256(inputPassword).toString();
+        const inputPassword = document.getElementById('password-input').value;
+        
+        // ★★★ デバッグ用の行を追加 ★★★
+        console.log("入力文字列:", `[${inputPassword}]`); // 入力された文字列を[]で囲んで表示
+        
+        // ★★★ 暫定修正案：入力からすべての空白文字と改行を削除（もし誤って入っていた場合） ★★★
+        // inputPassword = inputPassword.trim().replace(/\s/g, ''); 
+        
+        const inputPasswordHash = CryptoJS.SHA256(inputPassword).toString();
+        
+        // ★★★ デバッグ用の行を追加 ★★★
+        console.log("計算されたハッシュ:", inputPasswordHash);
+        console.log("正解ハッシュ:  ", correctPasswordHash);
 
-            if (inputPasswordHash === correctPasswordHash) {
-                window.location.href = 'problem-01.html';
-            } else {
-                document.getElementById('error-message').textContent = 'アクセスコードが違います。';
-            }
+        if (inputPasswordHash === correctPasswordHash) {
+            window.location.href = 'problem-01.html';
+        } else {
+            document.getElementById('error-message').textContent = 'アクセスコードが違います。';
         }
-        document.getElementById('password-input').addEventListener('keypress', e => { if (e.key === 'Enter') checkPassword(); });
+    }
     </script>
 </body>
 </html>
