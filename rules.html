@@ -8,11 +8,23 @@
     <style>
         /* このページ専用のスタイル */
         .rules-image {
+            /* ★修正点1: widthの指定を max-width に変更し、親要素に収まるように */
+            max-width: 100%; /* 親要素(container)の幅を超えないようにする */
+            height: auto;    /* アスペクト比を維持 */
+            
+            /* ★修正点2: 画像自体の最大幅をここで制御 */
+            max-width: 550px; /* 例えば、これで画像の最大の横幅を550pxに制限 */
+            
+            margin: 15px auto; /* 画像を中央寄せにするために左右をautoに */
+            display: block;    /* margin: auto が機能するようにブロック要素化 */
+            border: 1px solid #eee;
+            /*
             width: 100%;
-            max-width: 550px; /* 最大幅を指定 */
+            max-width: 550px; 
             height: auto;
             margin: 15px 0;
             border: 1px solid #eee;
+            */
         }
         .note {
             /* 注意書きを目立たせる */
