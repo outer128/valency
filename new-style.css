@@ -40,6 +40,8 @@ h2, h3 {
 }
 
 button {
+    display: block; 
+    margin: 15px auto 10px auto;
     padding: 10px 20px; /* サイズを少し調整 */
     font-size: 15px;
     cursor: pointer;
@@ -77,6 +79,8 @@ button:hover {
     margin: 10px auto; /* 上下に余白、左右中央寄せ */
     width: fit-content; /* グリッドの幅を内容物に合わせる */
     height: fit-content;
+    min-width: 0; 
+    min-height: 0;
 }
 
 /* === セルと数字の共通スタイル (style.cssから調整) === */
@@ -101,7 +105,7 @@ button:hover {
 }
 
 .number-cell.selected {
-    outline: 3px solid #3498db; /* 選択中の色を青系に変更 */
+    outline: 3px solid #555; /* 選択中の色を青系に変更 */
     outline-offset: -3px;
 }
 
@@ -150,7 +154,39 @@ button:hover {
 }
 
 
-/* === モバイル対応 === */
+
+/* ---------------------------------------------------- */
+/* === モバイル対応 (max-width: 640px) の再調整 === */
+/* ---------------------------------------------------- */
+@media (max-width: 640px) {
+    .container {
+        /* ★ 修正ポイント3: 左右のパディングを減らし、盤面領域を広げる ★ */
+        padding: 15px 5px; 
+    }
+    
+    /* 基準となるセルサイズを定義 */
+    :root {
+        --mobile-cell-size: 32px;
+    }
+
+    /* セルサイズをモバイル用に調整し、盤面が画面幅を超えないようにする */
+    .cell {
+        width: var(--mobile-cell-size);
+        height: var(--mobile-cell-size);
+        border-width: 1px;
+    }
+    .number {
+        font-size: 16px;
+    }
+    
+    .puzzle-section {
+        padding: 10px 5px;
+    }
+}
+
+
+/* === モバイル対応 修正前 === */
+/*
 @media (max-width: 640px) {
     .container {
         padding: 15px;
@@ -170,3 +206,4 @@ button:hover {
         padding: 10px;
     }
 }
+*/
