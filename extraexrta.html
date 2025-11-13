@@ -29,15 +29,16 @@
 
 
     <script>
-        // --- 1. 5問分のデータ定義 ---
+        // --- 1. 100問分のデータ定義 ---
         const puzzleData = [
+            // 1問目
             {height: 3, width: 4, numbers: [
                 { row: 0, col: 0, value: 2, color: '#ffadad' },
                 { row: 1, col: 1, value: 4, color: '#ffd6a5' },
                 { row: 1, col: 3, value: 2, color: '#caffb6' },
                 { row: 2, col: 0, value: 2, color: '#9bf6ff' },
                 { row: 2, col: 2, value: 2, color: '#bdb2ff' }
-            ],
+            ], 
             solution: new Set([
                 "0,0-1,0",
                 "0,1-0,2",
@@ -50,7 +51,8 @@
                 "2,0-2,1",
                 "2,1-2,2"
             ])},
-          
+
+            // 2問目
             {height: 3, width: 4, numbers: [
                 { row: 0, col: 0, value: 2, color: '#ffadad' },
                 { row: 1, col: 1, value: 4, color: '#ffd6a5' },
@@ -71,6 +73,7 @@
                 "2,1-2,2"
             ])},
 
+            // 3問目
             {height: 3, width: 4, numbers: [
                 { row: 0, col: 0, value: 2, color: '#ffadad' },
                 { row: 1, col: 1, value: 4, color: '#ffd6a5' },
@@ -91,6 +94,7 @@
                 "2,1-2,2"
             ])},
 
+            // 4問目
             {height: 3, width: 4, numbers: [
                 { row: 0, col: 0, value: 2, color: '#ffadad' },
                 { row: 1, col: 1, value: 4, color: '#ffd6a5' },
@@ -111,6 +115,7 @@
                 "2,1-2,2"
             ])},
 
+            // 5問目
             {height: 3, width: 4, numbers: [
                 { row: 0, col: 0, value: 2, color: '#ffadad' },
                 { row: 1, col: 1, value: 4, color: '#ffd6a5' },
@@ -131,6 +136,7 @@
                 "2,1-2,2"
             ])},
 
+            // 6問目
             {height: 3, width: 4, numbers: [
                 { row: 0, col: 0, value: 2, color: '#ffadad' },
                 { row: 1, col: 1, value: 4, color: '#ffd6a5' },
@@ -151,6 +157,7 @@
                 "2,1-2,2"
             ])},
 
+            // 7問目
             {height: 3, width: 4, numbers: [
                 { row: 0, col: 0, value: 2, color: '#ffadad' },
                 { row: 1, col: 1, value: 4, color: '#ffd6a5' },
@@ -171,6 +178,7 @@
                 "2,1-2,2"
             ])},
 
+            // 8問目
             {height: 3, width: 4, numbers: [
                 { row: 0, col: 0, value: 2, color: '#ffadad' },
                 { row: 1, col: 1, value: 4, color: '#ffd6a5' },
@@ -191,6 +199,7 @@
                 "2,1-2,2"
             ])},
 
+            // 9問目
             {height: 3, width: 4, numbers: [
                 { row: 0, col: 0, value: 2, color: '#ffadad' },
                 { row: 1, col: 1, value: 4, color: '#ffd6a5' },
@@ -211,6 +220,7 @@
                 "2,1-2,2"
             ])},
 
+            // 10問目
             {height: 3, width: 4, numbers: [
                 { row: 0, col: 0, value: 2, color: '#ffadad' },
                 { row: 1, col: 1, value: 4, color: '#ffd6a5' },
@@ -231,6 +241,7 @@
                 "2,1-2,2"
             ])},
 
+            // 11問目
             {height: 3, width: 4, numbers: [
                 { row: 0, col: 0, value: 2, color: '#ffadad' },
                 { row: 1, col: 1, value: 4, color: '#ffd6a5' },
@@ -251,6 +262,7 @@
                 "2,1-2,2"
             ])},
 
+            // 12問目
             {height: 3, width: 4, numbers: [
                 { row: 0, col: 0, value: 2, color: '#ffadad' },
                 { row: 1, col: 1, value: 4, color: '#ffd6a5' },
@@ -271,6 +283,7 @@
                 "2,1-2,2"
             ])},
 
+            // 13問目
             {height: 3, width: 4, numbers: [
                 { row: 0, col: 0, value: 2, color: '#ffadad' },
                 { row: 1, col: 1, value: 4, color: '#ffd6a5' },
@@ -291,6 +304,7 @@
                 "2,1-2,2"
             ])},
 
+            // 14問目
             {height: 3, width: 4, numbers: [
                 { row: 0, col: 0, value: 2, color: '#ffadad' },
                 { row: 1, col: 1, value: 4, color: '#ffd6a5' },
@@ -311,6 +325,7 @@
                 "2,1-2,2"
             ])},
 
+            // 15問目
             {height: 3, width: 4, numbers: [
                 { row: 0, col: 0, value: 2, color: '#ffadad' },
                 { row: 1, col: 1, value: 4, color: '#ffd6a5' },
@@ -331,6 +346,7 @@
                 "2,1-2,2"
             ])},
 
+            // 16問目
             {height: 3, width: 4, numbers: [
                 { row: 0, col: 0, value: 2, color: '#ffadad' },
                 { row: 1, col: 1, value: 4, color: '#ffd6a5' },
@@ -351,6 +367,7 @@
                 "2,1-2,2"
             ])},
 
+            // 17問目
             {height: 3, width: 4, numbers: [
                 { row: 0, col: 0, value: 2, color: '#ffadad' },
                 { row: 1, col: 1, value: 4, color: '#ffd6a5' },
@@ -371,6 +388,7 @@
                 "2,1-2,2"
             ])},
 
+            // 18問目
             {height: 3, width: 4, numbers: [
                 { row: 0, col: 0, value: 2, color: '#ffadad' },
                 { row: 1, col: 1, value: 4, color: '#ffd6a5' },
@@ -391,6 +409,7 @@
                 "2,1-2,2"
             ])},
 
+            // 19問目
             {height: 3, width: 4, numbers: [
                 { row: 0, col: 0, value: 2, color: '#ffadad' },
                 { row: 1, col: 1, value: 4, color: '#ffd6a5' },
@@ -411,6 +430,7 @@
                 "2,1-2,2"
             ])},
 
+            // 20問目
             {height: 3, width: 4, numbers: [
                 { row: 0, col: 0, value: 2, color: '#ffadad' },
                 { row: 1, col: 1, value: 4, color: '#ffd6a5' },
@@ -431,6 +451,7 @@
                 "2,1-2,2"
             ])},
 
+            // 21問目
             {height: 3, width: 4, numbers: [
                 { row: 0, col: 0, value: 2, color: '#ffadad' },
                 { row: 1, col: 1, value: 4, color: '#ffd6a5' },
@@ -451,6 +472,7 @@
                 "2,1-2,2"
             ])},
 
+            // 22問目
             {height: 3, width: 4, numbers: [
                 { row: 0, col: 0, value: 2, color: '#ffadad' },
                 { row: 1, col: 1, value: 4, color: '#ffd6a5' },
@@ -472,6 +494,21 @@
             ])},
         ];
 
+
+        const sectionTitles = {
+            1: "セクション 1: 基本の3x4問題でウォーミングアップ！",
+            11: "セクション 2: ここからの10問は、6x6の問題です。難易度アップ！",
+            21: "セクション 3: 3x5の特殊な問題です。形状に注意してください。",
+            31: "セクション 4: 盤面の形がL字型に変化します。",
+            41: "セクション 5: 結合価5以上の超難問セクションです。",
+            51: "セクション 6: カラータイルを使用した新しいタイプの問題。",
+            61: "セクション 7: 時間制限のある挑戦的な問題群です。",
+            71: "セクション 8: 全ての問題に複数の正解が存在します。",
+            81: "セクション 9: 数字が隠された推理問題セクションです。",
+            91: "セクション 10: 最後の10問！最高の集中力でクリアを目指せ！"
+            // 100問まで対応
+        };
+
         // --- 2. ゲームインスタンスの格納用配列 ---
         const gameInstances = [];
 
@@ -483,19 +520,11 @@
         document.addEventListener('DOMContentLoaded', () => {
             puzzleData.forEach((data, index) => {
                 const puzzleNumber = index + 1
-                if ((puzzleNumber - 1) % 10 === 0) {
-                    // 例: 1問目、11問目、21問目...
+                if (sectionTitles[puzzleNumber]) {
                     const subtitle = document.createElement('h3');
                     subtitle.classList.add('puzzle-subtitle');
             
-                    let titleText = `セクション ${Math.floor(index / 10) + 1}`;
-                    
-                    // 例外的なサブタイトルを定義 (必要に応じて追加)
-                    if (puzzleNumber === 11) {
-                        titleText = "セクション 2: ここからの10問は、6x6の問題です";
-                    } else if (puzzleNumber === 21) {
-                        titleText = "セクション 3: 3x5の特殊な問題です";
-                    }
+                    const titleText = sectionTitles[puzzleNumber];
             
                     subtitle.textContent = titleText;
                     wrapper.appendChild(subtitle);
