@@ -67,8 +67,7 @@ button {
     background-color: #333; /* モノトーン */
     color: white;
     transition: background-color 0.3s;
-    margin-bottom: 10px; 
-    text-align: center;
+    margin-bottom: 10px;
 }
 
 button:hover {
