@@ -29,6 +29,18 @@
 
 
     <script>
+        const sectionTitles = {
+            1: "セクション 1: 3x4",
+            6: "セクション 2: 4x4",
+            11: "セクション 3: 4x5",
+            16: "セクション 3: 5x6",
+            21: "セクション 3: 6x6",
+            31: "セクション 4: 6x7",
+            41: "セクション 6: Blank",
+            61: "セクション 7: Error",
+            81: "セクション 8: +1",
+        };
+        
         // --- 1. 100問分のデータ定義 ---
         const puzzleData = [
             // 1問目
@@ -74,45 +86,29 @@
             ])},
 
             // 4問目
-            {height: 3, width: 4, numbers: [
-                { row: 0, col: 0, value: 2, color: '#ffadad' },
-                { row: 1, col: 1, value: 4, color: '#ffd6a5' },
+            {height: 4, width: 4, numbers: [
+                { row: 1, col: 0, value: 2, color: '#ffadad' },
+                { row: 1, col: 1, value: 3, color: '#ffd6a5' },
                 { row: 1, col: 3, value: 2, color: '#caffb6' },
-                { row: 2, col: 0, value: 2, color: '#9bf6ff' },
-                { row: 2, col: 2, value: 2, color: '#bdb2ff' }
+                { row: 2, col: 0, value: 5, color: '#9bf6ff' },
+                { row: 3, col: 0, value: 2, color: '#bdb2ff' },
+                { row: 3, col: 2, value: 2, color: '#ffc6ff' }
             ],
             solution: new Set([
-                "0,0-1,0",
-                "0,1-0,2",
-                "0,1-1,1",
-                "0,2-0,3",
-                "1,0-1,1",
-                "1,2-1,3",
-                "1,2-2,2",
-                "1,3-2,3",
-                "2,0-2,1",
-                "2,1-2,2"
+                "0,0-0,1","0,2-0,3","0,2-1,2","1,0-1,1","1,0-2,0","1,1-1,2","1,1-2,1","1,2-1,3","1,3-2,3","2,0-3,0","2,1-3,1","2,2-3,2","2,3-3,3","3,1-3,2"
             ])},
 
             // 5問目
-            {height: 3, width: 4, numbers: [
-                { row: 0, col: 0, value: 2, color: '#ffadad' },
-                { row: 1, col: 1, value: 4, color: '#ffd6a5' },
-                { row: 1, col: 3, value: 2, color: '#caffb6' },
-                { row: 2, col: 0, value: 2, color: '#9bf6ff' },
-                { row: 2, col: 2, value: 2, color: '#bdb2ff' }
+            {height: 4, width: 4, numbers: [
+                { row: 0, col: 0, value: 1, color: '#ffadad' },
+                { row: 1, col: 2, value: 3, color: '#ffd6a5' },
+                { row: 2, col: 0, value: 2, color: '#caffb6' },
+                { row: 2, col: 1, value: 4, color: '#9bf6ff' },
+                { row: 2, col: 2, value: 4, color: '#bdb2ff' },
+                { row: 2, col: 3, value: 2, color: '#ffc6ff' }
             ],
             solution: new Set([
-                "0,0-1,0",
-                "0,1-0,2",
-                "0,1-1,1",
-                "0,2-0,3",
-                "1,0-1,1",
-                "1,2-1,3",
-                "1,2-2,2",
-                "1,3-2,3",
-                "2,0-2,1",
-                "2,1-2,2"
+                "0,0-0,1","0,0-1,0","0,1-0,2","0,3-1,3","1,0-2,0","1,1-1,2","1,2-1,3","1,2-2,2","2,0-2,1","2,1-2,2","2,1-3,1","2,2-2,3","2,3-3,3","3,0-3,1"
             ])},
 
             // 6問目
@@ -473,18 +469,6 @@
             ])},
         ];
 
-
-        const sectionTitles = {
-            1: "セクション 1: 4x4",
-            11: "セクション 2: 4x4",
-            21: "セクション 3: 3x5",
-            31: "セクション 4: 4x4",
-            41: "セクション 5: 4x4",
-            51: "セクション 6: Blank",
-            61: "セクション 7: Error",
-            81: "セクション 8: +1",
-            // 100問まで対応
-        };
 
         // --- 2. ゲームインスタンスの格納用配列 ---
         const gameInstances = [];
