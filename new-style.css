@@ -116,7 +116,7 @@ input[type="text"] {
 }
 
 .number-cell.selected {
-    outline: 3px solid #3498db; 
+    outline: 3px solid #555; 
     outline-offset: -3px;
 }
 
