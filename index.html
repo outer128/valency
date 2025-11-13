@@ -17,7 +17,8 @@
     </div>
 
     <script>
-        const correctPasswordHash = 'c7509f40453f92e3469603297c9e4b986ebd6e122018bdece95f56eaa9abda2d';  
+        const correctPasswordHash = 'c7509f40453f92e3469603297c9e4b986ebd6e122018bdece95f56eaa9abda2d'; 
+        const otherPasswordHash = 'c8dc63dfcd922d67c2ed78876ee68d01a8b51baa20767f3a56bfb0990dd67ced';
 
         function checkPassword() {
             let inputPassword = document.getElementById('password-input').value;
@@ -28,13 +29,16 @@
             // SHA-256でハッシュ化（16進数文字列に変換）
             const inputPasswordHash = CryptoJS.SHA256(inputPassword).toString();
 
-            if (inputPasswordHash === correctPasswordHash) {
-                // 認証成功: 次のページへ遷移
-                window.location.href = 'rules.html';
-            } else {
-                // 認証失敗: エラーメッセージを表示
-                document.getElementById('error-message').textContent = 'アクセスコードが違います。';
-            }
+            if (inputPasswordHash === correctPasswordHash) {
+                window.location.href = 'rules.html';
+            
+            } else if (inputPasswordHash === otherPasswordHash) {
+                window.location.href = 'extra.html'; 
+
+            } else {
+                // 認証失敗: エラーメッセージを表示
+                document.getElementById('error-message').textContent = 'アクセスコードが違います。';
+            }
         }
         
         // Enterキーでチェックを実行
