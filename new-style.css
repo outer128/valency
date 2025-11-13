@@ -1,0 +1,172 @@
+* {
+    box-sizing: border-box;
+}
+
+html, body {
+    width: 100%;
+    overflow-x: hidden;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    min-height: 100vh;
+    background-color: #f4f4f4; 
+    padding: 20px 10px; 
+}
+
+/* === コンテナ (style.cssから引き継ぎ) === */
+.container {
+    width: 100%;
+    max-width: 800px; /* 複数パズル表示のため、最大幅を広げる */
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    text-align: center;
+    box-sizing: border-box;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.logo {
+    max-width: 250px;
+    margin-bottom: 10px;
+}
+
+h2, h3 {
+    color: #222;
+}
+
+button {
+    padding: 10px 20px; /* サイズを少し調整 */
+    font-size: 15px;
+    cursor: pointer;
+    border-radius: 5px;
+    border: none;
+    background-color: #333;
+    color: white;
+    transition: background-color 0.3s;
+    margin-top: 10px; /* 上部に余白を追加 */
+}
+
+button:hover {
+    background-color: #555;
+}
+
+
+/* === 複数パズル対応レイアウト === */
+
+/* パズルセクション全体を囲むコンテナ (HTML側で .puzzle-section を追加した想定) */
+.puzzle-section {
+    border: 1px solid #ddd;
+    padding: 15px;
+    margin-bottom: 25px;
+    border-radius: 8px;
+    background-color: #fafafa;
+    text-align: center; /* 内部要素を中央に配置 */
+}
+
+/* 各パズルのグリッドコンテナ */
+/* IDが #grid-inner-1, #grid-inner-2... となる想定 */
+[id^="grid-inner-"] {
+    display: grid; /* ★これが縦並びを防ぐ最重要設定★ */
+    gap: 0px; /* セル間の隙間 */
+    border: 2px solid #333;
+    margin: 10px auto; /* 上下に余白、左右中央寄せ */
+    width: fit-content; /* グリッドの幅を内容物に合わせる */
+    height: fit-content;
+}
+
+/* === セルと数字の共通スタイル (style.cssから調整) === */
+.cell {
+    /* 常に40x40の正方形を確保 */
+    width: 40px;
+    height: 40px;
+    box-sizing: border-box;
+    position: relative;
+    border: 1px solid #eee; /* 薄い境界線 */
+    transition: background-color 0.2s ease;
+    cursor: cell;
+
+    /* 数字（または塗りつぶし）を中央に配置 */
+    display: flex; 
+    justify-content: center;
+    align-items: center;
+}
+
+.number-cell {
+    cursor: pointer;
+}
+
+.number-cell.selected {
+    outline: 3px solid #3498db; /* 選択中の色を青系に変更 */
+    outline-offset: -3px;
+}
+
+.number {
+    font-size: 20px;
+    font-weight: bold;
+    color: white; 
+    /* 配置ロジックを削除し、flexboxに任せる */
+    pointer-events: none; 
+    
+    /* 黒縁 (視認性向上) */
+    text-shadow:
+        -1px -1px 0 #000, 
+         1px -1px 0 #000,
+        -1px  1px 0 #000,
+         1px  1px 0 #000;
+}
+
+/* === メッセージエリアとリンク === */
+[id^="message-area-"] { /* 複数のメッセージエリアに対応 */
+    margin-top: 10px;
+    font-size: 1.1em;
+    font-weight: bold;
+    min-height: 1.5em;
+    color: #333;
+}
+
+#all-clear-link { /* 最終的なリンク */
+    font-size: 1.3em;
+}
+
+.next-stage-button {
+    display: inline-block;
+    background-color: #2ecc71; /* 緑系のクリア色 */
+    color: white;
+    padding: 15px 30px;
+    border-radius: 5px; 
+    text-decoration: none;
+    font-weight: bold;
+    margin-top: 20px;
+    transition: background-color 0.3s;
+}
+
+.next-stage-button:hover {
+    background-color: #27ae60;
+}
+
+
+/* === モバイル対応 === */
+@media (max-width: 640px) {
+    .container {
+        padding: 15px;
+    }
+    
+    /* セルサイズをさらに小さくして、小さな画面でも多くのマスを表示できるようにする */
+    .cell {
+        width: 32px;
+        height: 32px;
+    }
+    .number {
+        font-size: 16px;
+    }
+    
+    /* 複数のパズルセクションを縦にきれいに並べる */
+    .puzzle-section {
+        padding: 10px;
+    }
+}
