@@ -68,6 +68,7 @@ button {
     color: white;
     transition: background-color 0.3s;
     margin-bottom: 10px; 
+    text-align: center;
 }
 
 button:hover {
