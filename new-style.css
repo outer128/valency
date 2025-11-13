@@ -148,6 +148,14 @@ input[type="text"] {
     background-color: #27ae60;
 }
 
+.puzzle-subtitle {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #444;
+    margin-top: 40px;    /* 上部に大きな余白 */
+    margin-bottom: 20px;
+    text-align: center;
+}
 
 @media (max-width: 640px) {
     .container {
