@@ -167,6 +167,54 @@ button:hover {
     background-color: #333;
 }
 
+.special-rule-tag {
+    font-size: 1.1em;
+    font-weight: bold;
+    color: white;
+    background-color: #d93025; /* 警告や重要性を示す赤色 */
+    padding: 6px 15px;
+    border-radius: 4px;
+    display: inline-block;
+    margin: 10px auto 15px auto; /* 中央寄せ */
+    letter-spacing: 0.5px;
+}
+.tag-icon {
+    font-size: 1.2em;
+    margin-right: 5px;
+}
+
+.logic-box {
+    background-color: #e8f0fe; /* 淡い青 (Googleのサービスでよく使われる色) */
+    border: 1px solid #c2e0ff;
+    border-radius: 6px;
+    padding: 15px;
+    margin: 15px auto;
+    max-width: 400px; /* ボックスの最大幅を制限 */
+    text-align: center;
+}
+.logic-header {
+    font-size: 0.9em;
+    font-weight: bold;
+    color: #1a73e8; /* 青色 */
+    margin-bottom: 8px;
+}
+.equation {
+    font-family: 'Courier New', monospace; /* 数式らしいフォント */
+    font-size: 1.2em;
+    margin-bottom: 10px;
+    line-height: 1.5;
+}
+.blank-variable {
+    font-style: italic;
+    color: #d93025; /* 変数を赤く強調 */
+    font-weight: bold;
+}
+.calculated-value {
+    font-size: 1.3em;
+    font-weight: bold;
+    color: #1a73e8; /* 計算結果を青く強調 */
+}
+
 
 /* === モバイル対応 === */
 @media (max-width: 640px) {
