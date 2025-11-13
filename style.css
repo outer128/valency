@@ -1,13 +1,10 @@
-/* style.css */
-
-/* === グローバル設定 === */
 * {
-    box-sizing: border-box; /* paddingとborderを幅の計算に含める */
+    box-sizing: border-box; 
 }
 
 html, body {
     width: 100%;
-    overflow-x: hidden; /* 横スクロールを強制的に防止 */
+    overflow-x: hidden; 
     margin: 0;
     padding: 0;
 }
@@ -16,28 +13,25 @@ body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
     min-height: 100vh;
     background-color: #f4f4f4; 
-    
-    /* 画面全体に余白を設定 (上下に20px, 左右に10px) */
+
     padding: 20px 10px; 
 }
 
-/* === コンテナ (index.html, problem-01.html 共通) === */
+
 .container {
     width: 100%;
-    max-width: 600px; /* PCでの最大幅 */
+    max-width: 600px; 
     background: white;
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.05);
     text-align: center;
     box-sizing: border-box;
-    
-    /* ★左右中央寄せ (最もシンプルな方法) */
     margin-left: auto;
     margin-right: auto;
 }
 
-/* === 基本要素 (モノトーン) === */
+
 h1, h2 {
     color: #222;
 }
@@ -47,7 +41,6 @@ h1, h2 {
     margin-bottom: 10px;
 }
 
-/* index.html の入力フォーム */
 input[type="text"],
 input[type="password"] {
     width: 80%;
@@ -66,7 +59,7 @@ button {
     cursor: pointer;
     border-radius: 5px;
     border: none;
-    background-color: #333; /* モノトーン */
+    background-color: #333; 
     color: white;
     transition: background-color 0.3s;
     margin-bottom: 10px;
@@ -82,7 +75,6 @@ button:hover {
     min-height: 1.2em;
 }
 
-/* === パズル盤面 (problem-01.html) === */
 #grid-container {
     display: flex;
     justify-content: center;
@@ -115,7 +107,6 @@ button:hover {
     outline-offset: -3px;
 }
 
-/* 数字のスタイル (黒縁) */
 .number {
     font-size: 20px;
     font-weight: bold;
@@ -126,7 +117,6 @@ button:hover {
     transform: translate(-50%, -50%);
     pointer-events: none; 
     
-    /* 黒縁 */
     text-shadow: 
         -1px -1px 0 #000,  
          1px -1px 0 #000,
@@ -134,7 +124,6 @@ button:hover {
          1px  1px 0 #000;
 }
 
-/* === メッセージエリア === */
 #message-area {
     margin-top: 10px;
     font-size: 1.2em;
@@ -167,241 +156,6 @@ button:hover {
     background-color: #333;
 }
 
-.special-rule-tag {
-    font-size: 1.1em;
-    font-weight: bold;
-    color: white;
-    background-color: #d93025; /* 警告や重要性を示す赤色 */
-    padding: 6px 15px;
-    border-radius: 4px;
-    display: inline-block;
-    margin: 10px auto 15px auto; /* 中央寄せ */
-    letter-spacing: 0.5px;
-}
-.tag-icon {
-    font-size: 1.2em;
-    margin-right: 5px;
-}
-
-.logic-box {
-    background-color: #e8f0fe; /* 淡い青 (Googleのサービスでよく使われる色) */
-    border: 1px solid #c2e0ff;
-    border-radius: 6px;
-    padding: 15px;
-    margin: 15px auto;
-    max-width: 400px; /* ボックスの最大幅を制限 */
-    text-align: center;
-}
-.logic-header {
-    font-size: 0.9em;
-    font-weight: bold;
-    color: #1a73e8; /* 青色 */
-    margin-bottom: 8px;
-}
-.equation {
-    font-family: 'Courier New', monospace; /* 数式らしいフォント */
-    font-size: 1.2em;
-    margin-bottom: 10px;
-    line-height: 1.5;
-}
-.blank-variable {
-    font-style: italic;
-    color: #d93025; /* 変数を赤く強調 */
-    font-weight: bold;
-}
-.calculated-value {
-    font-size: 1.3em;
-    font-weight: bold;
-    color: #1a73e8; /* 計算結果を青く強調 */
-}
-
-
-/* === モバイル対応 === */
-@media (max-width: 640px) {
-    /* bodyの左右パディングは維持される */
-    .container {
-        padding: 15px;
-    }
-    h1 { font-size: 1.8em; }
-    h2 { font-size: 1.3em; }
-
-    /* セルサイズ調整 */
-    .cell {
-        width: 35px;
-        height: 35px;
-    }
-    .number {
-        font-size: 18px;
-    }
-}
-
-
-/*
-
-html, body {
-    width: 100%;
-    overflow-x: hidden;
-}
-
-
-
-body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    margin: 0;
-    padding: 0; 
-    box-sizing: border-box;
-    background-color: #f4f4f4; 
-}
-
-
-
-.container {
-    width: 100%;
-    max-width: 600px;
-    background: white;
-    padding: 20px;
-    border-radius: 8px; 
-    
-    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-    text-align: center;
-    box-sizing: border-box;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-h1, h2 {
-    color: #222; 
-}
-
-.logo {
-    max-width: 250px;
-    margin-bottom: 10px;
-}
-
-input[type="password"] {
-    width: 80%;
-    padding: 12px;
-    margin: 15px 0;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 16px;
-}
-
-button {
-    padding: 12px 25px;
-    font-size: 16px;
-    cursor: pointer;
-    border-radius: 5px;
-    border: none;
-    background-color: #333;
-    color: white;
-    transition: background-color 0.3s;
-}
-
-button:hover {
-    background-color: #555;
-}
-
-.error {
-    color: #d93025; 
-    font-weight: bold;
-    min-height: 1.2em;
-}
-
-#grid-container {
-    display: flex;
-    justify-content: center;
-    margin-top: 20px;
-    margin-bottom: 20px;
-}
-
-#grid-inner {
-    display: grid;
-    border: 2px solid #333; 
-}
-
-
-.cell {
-    width: 40px;
-    height: 40px;
-    box-sizing: border-box;
-    position: relative;
-    border: 1px solid #eee;
-    transition: background-color 0.2s ease;
-    cursor: cell;
-}
-
-.number-cell {
-    cursor: pointer; 
-    font-weight: bold;
-}
-
-.number-cell.selected {
-    outline: 3px solid #555;
-    outline-offset: -3px;
-}
-
-.number {
-    font-size: 20px;
-    font-weight: bold;
-    color: white; 
-    
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    pointer-events: none; 
-    
-    text-shadow: 
-        -1px -1px 0 #000,  
-         1px -1px 0 #000,
-        -1px  1px 0 #000,
-         1px  1px 0 #000;
-}
-
-#message-area {
-    margin-top: 20px;
-    font-size: 1.2em;
-    font-weight: bold;
-    min-height: 1.5em;
-    color: #333;
-}
-
-#next-stage-link {
-    display: none;
-    margin-top: 15px;
-    font-size: 1.2em;
-    color: #333;
-    text-decoration: underline;
-}
-
-.tweet-button {
-    display: inline-block;
-    background-color: #555;
-    color: white;
-    padding: 10px 20px;
-    border-radius: 5px; 
-    text-decoration: none;
-    font-weight: bold;
-    margin-top: 20px;
-    transition: background-color 0.3s;
-}
-
-.tweet-button:hover {
-    background-color: #333;
-}
-
-@media (max-width: 600px) {
-    .container {
-        margin-left: 10px;
-        margin-right: 10px;
-        width: auto; 
-    }
-}
 
 @media (max-width: 640px) {
     .container {
@@ -417,6 +171,8 @@ button:hover {
     .number {
         font-size: 18px;
     }
+}
+
 }
 
 */
