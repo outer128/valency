@@ -9,7 +9,8 @@
 <body onload="initGame(puzzle)">
     <div class="container">
         <img src="logo.png" alt="VALENCY Logo" class="logo">
-        <h2>Question 14</h2>
+        <h2>Question 14 &nbsp;<font color="red">-Error-</font></h2>
+        <p>4&nbsp;+&nbsp;3&nbsp;+&nbsp;3&nbsp;+&nbsp;5&nbsp;+&nbsp;4&nbsp;+&nbsp;3&nbsp;+&nbsp;4&nbsp;+&nbsp;6&nbsp;+&nbsp;3&nbsp;+&nbsp;2&nbsp;&nbsp;=&nbsp;&nbsp;37<br>37&nbsp;&nbsp;<b>≠</b>&nbsp;&nbsp;36</p>
         <div id="grid-container">
             <div id="grid-inner"></div>
         </div>
@@ -26,16 +27,16 @@
             height: 6,
             width: 6,
             numbers: [
-                { row: 0, col: 0, value: 4, color: '#ff0000' },
-                { row: 0, col: 5, value: 4, color: '#ffadad' },
-                { row: 1, col: 1, value: 3, color: '#caffb6' },
-                { row: 1, col: 3, value: 3, color: '#9bf6ff' },
-                { row: 2, col: 2, value: 5, color: '#bdb2ff' },
+                { row: 0, col: 0, value: 4, color: '#ffadad' },
+                { row: 1, col: 1, value: 3, color: '#fdffb6' },
+                { row: 1, col: 3, value: 3, color: '#caffb6' },
+                { row: 2, col: 2, value: 5, color: '#9bf6ff' },
+                { row: 2, col: 4, value: 4, color: '#bdb2ff' },
                 { row: 3, col: 5, value: 3, color: '#ffc6ff' },
-                { row: 4, col: 0, value: 4, color: '#fdffb6' },
-                { row: 5, col: 0, value: 2, color: '#e4e4e4' },
-                { row: 5, col: 2, value: 6, color: '#ffd6a5' },
-                { row: 5, col: 4, value: 2, color: '#ffd6a5' }
+                { row: 4, col: 1, value: 4, color: '#ffd6a5' },
+                { row: 4, col: 4, value: 6, color: '#e4e4e4' },
+                { row: 5, col: 0, value: 3, color: '#5c87ff' },
+                { row: 5, col: 5, value: 2, color: '#a2c8b8' }
             ],
             // 正解となる線の情報
             solution: new Set([
