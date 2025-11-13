@@ -1,3 +1,9 @@
+/* -------------------------------------- */
+/* === new-style.css === */
+/* 5問同時表示用のスタイル定義 */
+/* -------------------------------------- */
+
+/* === グローバル設定 (style.cssから引き継ぎ) === */
 * {
     box-sizing: border-box;
 }
@@ -19,13 +25,15 @@ body {
 /* === コンテナ (style.cssから引き継ぎ) === */
 .container {
     width: 100%;
-    max-width: 800px; /* 複数パズル表示のため、最大幅を広げる */
+    max-width: 800px; 
     background: white;
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.05);
     text-align: center;
     box-sizing: border-box;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .logo {
@@ -37,62 +45,67 @@ h2, h3 {
     color: #222;
 }
 
+/* ★アクセスコード画面のボタン中央寄せ修正 (再掲) */
 button {
     display: block; 
     margin: 15px auto 10px auto;
-    padding: 10px 20px; /* サイズを少し調整 */
-    font-size: 15px;
+    padding: 12px 25px; 
+    font-size: 16px;
     cursor: pointer;
     border-radius: 5px;
     border: none;
     background-color: #333;
     color: white;
     transition: background-color 0.3s;
-    margin-top: 10px; /* 上部に余白を追加 */
 }
 
 button:hover {
     background-color: #555;
 }
 
+input[type="text"] {
+    display: block;
+    margin: 15px auto; 
+    width: 80%;
+    max-width: 400px; /* inputの最大幅を制限 */
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
 
 /* === 複数パズル対応レイアウト === */
-
-/* パズルセクション全体を囲むコンテナ (HTML側で .puzzle-section を追加した想定) */
 .puzzle-section {
     border: 1px solid #ddd;
     padding: 15px;
     margin-bottom: 25px;
     border-radius: 8px;
     background-color: #fafafa;
-    text-align: center; /* 内部要素を中央に配置 */
+    text-align: center;
 }
 
 /* 各パズルのグリッドコンテナ */
-/* IDが #grid-inner-1, #grid-inner-2... となる想定 */
 [id^="grid-inner-"] {
-    display: grid; /* ★これが縦並びを防ぐ最重要設定★ */
-    gap: 0px; /* セル間の隙間 */
+    display: grid; 
+    gap: 0px;
     border: 2px solid #333;
-    margin: 10px auto; /* 上下に余白、左右中央寄せ */
+    margin: 10px auto; /* ★ここが中央寄せの鍵です★ */
     width: fit-content; /* グリッドの幅を内容物に合わせる */
     height: fit-content;
+    /* モバイル環境で画面端に寄せすぎないための最小マージンを確保 */
     min-width: 0; 
     min-height: 0;
 }
 
-/* === セルと数字の共通スタイル (style.cssから調整) === */
+/* === セルと数字の共通スタイル === */
 .cell {
-    /* 常に40x40の正方形を確保 */
     width: 40px;
     height: 40px;
     box-sizing: border-box;
     position: relative;
-    border: 1px solid #eee; /* 薄い境界線 */
+    border: 1px solid #eee;
     transition: background-color 0.2s ease;
     cursor: cell;
-
-    /* 数字（または塗りつぶし）を中央に配置 */
     display: flex; 
     justify-content: center;
     align-items: center;
@@ -103,7 +116,7 @@ button:hover {
 }
 
 .number-cell.selected {
-    outline: 3px solid #555; /* 選択中の色を青系に変更 */
+    outline: 3px solid #3498db; 
     outline-offset: -3px;
 }
 
@@ -111,10 +124,7 @@ button:hover {
     font-size: 20px;
     font-weight: bold;
     color: white; 
-    /* 配置ロジックを削除し、flexboxに任せる */
     pointer-events: none; 
-    
-    /* 黒縁 (視認性向上) */
     text-shadow:
         -1px -1px 0 #000, 
          1px -1px 0 #000,
@@ -123,7 +133,7 @@ button:hover {
 }
 
 /* === メッセージエリアとリンク === */
-[id^="message-area-"] { /* 複数のメッセージエリアに対応 */
+[id^="message-area-"] {
     margin-top: 10px;
     font-size: 1.1em;
     font-weight: bold;
@@ -131,13 +141,13 @@ button:hover {
     color: #333;
 }
 
-#all-clear-link { /* 最終的なリンク */
+#all-clear-link {
     font-size: 1.3em;
 }
 
 .next-stage-button {
     display: inline-block;
-    background-color: #2ecc71; /* 緑系のクリア色 */
+    background-color: #2ecc71;
     color: white;
     padding: 15px 30px;
     border-radius: 5px; 
@@ -152,22 +162,24 @@ button:hover {
 }
 
 
-
 /* ---------------------------------------------------- */
 /* === モバイル対応 (max-width: 640px) の再調整 === */
 /* ---------------------------------------------------- */
 @media (max-width: 640px) {
     .container {
-        /* ★ 修正ポイント3: 左右のパディングを減らし、盤面領域を広げる ★ */
-        padding: 15px 5px; 
+        padding: 15px 5px; /* 左右のパディングを少し減らす */
     }
     
-    /* 基準となるセルサイズを定義 */
+    /* 【強化されたモバイル対応】セルサイズを画面幅に合わせるための計算 */
+    /* 5x5や6x6の盤面でも収まるように、セルサイズを動的に調整するCSS変数を使用します */
+    
+    /* 基準となるセルサイズ */
     :root {
         --mobile-cell-size: 32px;
     }
 
-    /* セルサイズをモバイル用に調整し、盤面が画面幅を超えないようにする */
+    /* 盤面幅（例: 4列のパズルなら 4 * 32px + 2px(border) ）が画面幅を超えないようにする */
+    
     .cell {
         width: var(--mobile-cell-size);
         height: var(--mobile-cell-size);
@@ -181,27 +193,3 @@ button:hover {
         padding: 10px 5px;
     }
 }
-
-
-/* === モバイル対応 修正前 === */
-/*
-@media (max-width: 640px) {
-    .container {
-        padding: 15px;
-    }
-    
-    /* セルサイズをさらに小さくして、小さな画面でも多くのマスを表示できるようにする */
-    .cell {
-        width: 32px;
-        height: 32px;
-    }
-    .number {
-        font-size: 16px;
-    }
-    
-    /* 複数のパズルセクションを縦にきれいに並べる */
-    .puzzle-section {
-        padding: 10px;
-    }
-}
-*/
