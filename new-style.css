@@ -1,9 +1,3 @@
-/* -------------------------------------- */
-/* === new-style.css === */
-/* 5問同時表示用のスタイル定義 */
-/* -------------------------------------- */
-
-/* === グローバル設定 (style.cssから引き継ぎ) === */
 * {
     box-sizing: border-box;
 }
@@ -22,7 +16,6 @@ body {
     padding: 20px 10px; 
 }
 
-/* === コンテナ (style.cssから引き継ぎ) === */
 .container {
     width: 100%;
     max-width: 800px; 
@@ -45,7 +38,6 @@ h2, h3 {
     color: #222;
 }
 
-/* ★アクセスコード画面のボタン中央寄せ修正 (再掲) */
 button {
     display: block; 
     margin: 15px auto 10px auto;
@@ -67,14 +59,13 @@ input[type="text"] {
     display: block;
     margin: 15px auto; 
     width: 80%;
-    max-width: 400px; /* inputの最大幅を制限 */
+    max-width: 400px; 
     padding: 12px;
     border: 1px solid #ccc;
     border-radius: 5px;
     font-size: 16px;
 }
 
-/* === 複数パズル対応レイアウト === */
 .puzzle-section {
     border: 1px solid #ddd;
     padding: 15px;
@@ -84,20 +75,17 @@ input[type="text"] {
     text-align: center;
 }
 
-/* 各パズルのグリッドコンテナ */
 [id^="grid-inner-"] {
     display: grid; 
     gap: 0px;
     border: 2px solid #333;
-    margin: 10px auto; /* ★ここが中央寄せの鍵です★ */
-    width: fit-content; /* グリッドの幅を内容物に合わせる */
+    margin: 10px auto; 
+    width: fit-content; 
     height: fit-content;
-    /* モバイル環境で画面端に寄せすぎないための最小マージンを確保 */
     min-width: 0; 
     min-height: 0;
 }
 
-/* === セルと数字の共通スタイル === */
 .cell {
     width: 40px;
     height: 40px;
@@ -132,7 +120,6 @@ input[type="text"] {
          1px  1px 0 #000;
 }
 
-/* === メッセージエリアとリンク === */
 [id^="message-area-"] {
     margin-top: 10px;
     font-size: 1.1em;
@@ -162,24 +149,15 @@ input[type="text"] {
 }
 
 
-/* ---------------------------------------------------- */
-/* === モバイル対応 (max-width: 640px) の再調整 === */
-/* ---------------------------------------------------- */
 @media (max-width: 640px) {
     .container {
         padding: 15px 5px; /* 左右のパディングを少し減らす */
     }
-    
-    /* 【強化されたモバイル対応】セルサイズを画面幅に合わせるための計算 */
-    /* 5x5や6x6の盤面でも収まるように、セルサイズを動的に調整するCSS変数を使用します */
-    
-    /* 基準となるセルサイズ */
+
     :root {
         --mobile-cell-size: 32px;
     }
 
-    /* 盤面幅（例: 4列のパズルなら 4 * 32px + 2px(border) ）が画面幅を超えないようにする */
-    
     .cell {
         width: var(--mobile-cell-size);
         height: var(--mobile-cell-size);
