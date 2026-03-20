@@ -29,6 +29,11 @@
 
 
     <script>
+        // サイト専用の固有IDを定義
+        const SITE_ID = 'puzzle_vol1';
+        // 全体の進行状況を保存するキー名
+        const STATUS_KEY = `${SITE_ID}_valencyPuzzleStatus`;
+        
         const sectionTitles = {
             1: "セクション 1: 3x4",
             6: "セクション 2: 4x4",
@@ -840,7 +845,7 @@
 
         // --- 3. 全問の正解ステータス ---
         // 変更: localStorageからデータを読み込む
-        const savedData = localStorage.getItem('valencyPuzzleStatus');
+        const savedData = localStorage.getItem(STATUS_KEY);
         let solvedStatus = savedData 
             ? JSON.parse(savedData) 
             : new Array(puzzleData.length).fill(false);
@@ -899,7 +904,7 @@
                 wrapper.appendChild(section);
 
                 // ValencyGame インスタンスを作成
-                const game = new ValencyGame(data, gridInnerId, messageAreaId);
+                const game = new ValencyGame(data, gridInnerId, messageAreaId, SITE_ID);
                 gameInstances.push(game);
             });
         });
@@ -907,7 +912,6 @@
         // --- 5. チェックボタンが押されたときの処理 ---
         // 追加: ページ読み込み時にも全問クリアしているかチェックするため、DOMContentLoadedの最後で呼び出します
         document.addEventListener('DOMContentLoaded', () => {
-            // ...(これまでのパズル生成処理)...
             
             // 全問正解チェックをロード時にも実行
             checkAllClear();
@@ -932,7 +936,7 @@
                 solvedStatus[index] = true; // 正解状態を保存
                 
                 // ★ 追加: localStorage に状態を保存する
-                localStorage.setItem('valencyPuzzleStatus', JSON.stringify(solvedStatus));
+                localStorage.setItem(STATUS_KEY, JSON.stringify(solvedStatus));
                 
                 // ★ 追加: ボタンの表示を「正解済み」に変更する
                 const btn = document.getElementById(`check-btn-${puzzleNumber}`);
