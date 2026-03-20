@@ -157,6 +157,46 @@ input[type="text"] {
     text-align: center;
 }
 
+
+.modal-overlay {
+    position: fixed;
+    top: 0; 
+    left: 0; 
+    width: 100%; 
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6); /* 背景を少し暗くする */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* 一番手前に表示 */
+}
+
+.modal-content {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 12px;
+    text-align: center;
+    max-width: 400px;
+    width: 90%;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+#close-notice-btn {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #1a73e8;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+#close-notice-btn:hover {
+    background-color: #1557b0;
+}
+
+
 @media (max-width: 640px) {
     .container {
         padding: 15px 5px; /* 左右のパディングを少し減らす */
