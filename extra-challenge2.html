@@ -29,6 +29,11 @@
 
 
     <script>
+        // このサイト専用の固有IDを定義
+        const SITE_ID = 'puzzle_vol2';
+        // 全体の進行状況を保存するキー名
+        const STATUS_KEY = `${SITE_ID}_valencyPuzzleStatus`;
+        
         const sectionTitles = {
             1: "Blank & +1",
             4: "Error & +1",
@@ -227,7 +232,7 @@
 
         // --- 3. 全問の正解ステータス ---
         // 変更: localStorageからデータを読み込む
-        const savedData = localStorage.getItem('valencyPuzzleStatus');
+        const savedData = localStorage.getItem(STATUS_KEY);
         let solvedStatus = savedData 
             ? JSON.parse(savedData) 
             : new Array(puzzleData.length).fill(false);
@@ -286,7 +291,7 @@
                 wrapper.appendChild(section);
 
                 // ValencyGame インスタンスを作成
-                const game = new ValencyGame(data, gridInnerId, messageAreaId);
+                const game = new ValencyGame(data, gridInnerId, messageAreaId, SITE_ID);
                 gameInstances.push(game);
             });
         });
@@ -319,7 +324,7 @@
                 solvedStatus[index] = true; // 正解状態を保存
                 
                 // ★ 追加: localStorage に状態を保存する
-                localStorage.setItem('valencyPuzzleStatus', JSON.stringify(solvedStatus));
+                localStorage.setItem(STATUS_KEY, JSON.stringify(solvedStatus));
                 
                 // ★ 追加: ボタンの表示を「正解済み」に変更する
                 const btn = document.getElementById(`check-btn-${puzzleNumber}`);
