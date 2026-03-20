@@ -27,12 +27,28 @@
         </div>
     </div>
 
+    <div id="notice-modal" class="modal-overlay" style="display: none;">
+        <div class="modal-content">
+            <h2>お知らせ</h2>
+            <p>サイトの仕様が新しくなりました。</p>
+            <ul style="text-align: left;">
+                <li>パズルの進捗が保存されるようになりました。</li>
+                <li>ページを閉じても続きから遊べます。</li>
+            </ul>
+            <button id="close-notice-btn">確認しました</button>
+        </div>
+    </div>
+
 
     <script>
         // サイト専用の固有IDを定義
         const SITE_ID = 'puzzle_vol1';
         // 全体の進行状況を保存するキー名
         const STATUS_KEY = `${SITE_ID}_valencyPuzzleStatus`;
+
+        // お知らせのバージョン管理
+        const NOTICE_VERSION = 'v1'; 
+        const NOTICE_KEY = `${SITE_ID}_notice_seen_${NOTICE_VERSION}`;
         
         const sectionTitles = {
             1: "セクション 1: 3x4",
@@ -912,7 +928,23 @@
         // --- 5. チェックボタンが押されたときの処理 ---
         // 追加: ページ読み込み時にも全問クリアしているかチェックするため、DOMContentLoadedの最後で呼び出します
         document.addEventListener('DOMContentLoaded', () => {
-            
+
+            // お知らせモーダルの制御
+            const noticeModal = document.getElementById('notice-modal');
+            const closeBtn = document.getElementById('close-notice-btn');
+
+            // localStorage に「見た」という記録がなければ表示する
+            if (!localStorage.getItem(NOTICE_KEY)) {
+                // style.display を空にしてCSSの 'flex' を適用させる
+                noticeModal.style.display = 'flex'; 
+            }
+
+            // 「確認しました」ボタンを押した時の処理
+            closeBtn.addEventListener('click', () => {
+                noticeModal.style.display = 'none'; // 非表示にする
+                localStorage.setItem(NOTICE_KEY, 'true'); // 「見た」という記録を保存
+            });
+
             // 全問正解チェックをロード時にも実行
             checkAllClear();
         });
