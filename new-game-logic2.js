@@ -1,5 +1,5 @@
 class ValencyGame {
-    constructor(puzzleData, containerId, messageId) {
+    constructor(puzzleData, containerId, messageId, siteId) {
         // パズルごとのローカルな状態
         this.puzzleData = puzzleData;
         this.userRegions = {};
@@ -10,9 +10,9 @@ class ValencyGame {
         this.containerElement = document.getElementById(containerId);
         this.messageElement = document.getElementById(messageId);
 
-        // 【追加】このパズル専用の保存キーを作成（例: "valency_state_grid-inner-1"）
-        this.storageKey = `valency_state_${containerId}`;
-        // 【追加】正解済みかどうかのフラグ
+        // このパズル専用の保存キーを作成
+        this.storageKey = `${siteId}_valency_state_${containerId}`;
+        // 正解済みかどうかのフラグ
         this.isSolved = false; 
 
         // 初期化を実行
