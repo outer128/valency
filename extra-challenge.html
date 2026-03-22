@@ -27,8 +27,12 @@
         </div>
     </div>
 
-
     <script>
+        // このサイト専用の固有IDを定義
+        const SITE_ID = 'puzzle_vol2';
+        // 全体の進行状況を保存するキー名
+        const STATUS_KEY = `${SITE_ID}_valencyPuzzleStatus`;
+        
         const sectionTitles = {
             1: "Blank & +1",
             4: "Error & +1",
@@ -220,14 +224,18 @@
             ])}
 
         ];
-
-
+        
+        
         // --- 2. ゲームインスタンスの格納用配列 ---
         const gameInstances = [];
 
         // --- 3. 全問の正解ステータス ---
-        let solvedStatus = new Array(puzzleData.length).fill(false);
-        const wrapper = document.getElementById('puzzles-wrapper'); // 新しいラッパー要素を取得
+        // 変更: localStorageからデータを読み込む
+        const savedData = localStorage.getItem(STATUS_KEY);
+        let solvedStatus = savedData 
+            ? JSON.parse(savedData) 
+            : new Array(puzzleData.length).fill(false);
+        const wrapper = document.getElementById('puzzles-wrapper');
 
         // --- 4. ページロード時の初期化処理 ---
         document.addEventListener('DOMContentLoaded', () => {
@@ -260,9 +268,16 @@
 
                 // チェックボタン
                 const checkButton = document.createElement('button');
+                checkButton.id = `check-btn-${puzzleNumber}`; // ★ 後で操作できるようにIDを付与
                 checkButton.textContent = '回答をチェック';
-                // クリックイベントハンドラを動的に設定
                 checkButton.onclick = () => checkPuzzle(puzzleNumber);
+                
+                // 変更: すでに正解済みの場合はボタンを無効化して表示を変える
+                if (solvedStatus[index]) {
+                    checkButton.disabled = true;
+                    checkButton.textContent = '正解済み';
+                }
+                
                 section.appendChild(checkButton);
 
                 // メッセージエリア
@@ -275,33 +290,54 @@
                 wrapper.appendChild(section);
 
                 // ValencyGame インスタンスを作成
-                const game = new ValencyGame(data, gridInnerId, messageAreaId);
+                const game = new ValencyGame(data, gridInnerId, messageAreaId, SITE_ID);
                 gameInstances.push(game);
             });
         });
 
         // --- 5. チェックボタンが押されたときの処理 ---
-        // (HTMLの onclick="checkPuzzle(N)" から呼び出される)
-        function checkPuzzle(puzzleNumber) {
-            const index = puzzleNumber - 1;
-            const game = gameInstances[index];
+        // 追加: ページ読み込み時にも全問クリアしているかチェックするため、DOMContentLoadedの最後で呼び出します
+        document.addEventListener('DOMContentLoaded', () => {
+            // ...(これまでのパズル生成処理)...
             
-            // 該当パズルの checkAnswer メソッドを実行
-            const isCorrect = game.checkAnswer();
+            // 全問正解チェックをロード時にも実行
+            checkAllClear();
+        });
 
-            if (isCorrect) {
-                solvedStatus[index] = true; // 正解状態を保存
-            }
-
-            // 全問正解チェック
+        // 追加: 全問正解判定を独立した関数にする
+        function checkAllClear() {
             const allSolved = solvedStatus.every(status => status === true);
-
             if (allSolved) {
                 document.getElementById('all-clear-link').style.display = 'block';
             }
         }
+
+        // --- 5. チェックボタンが押されたときの処理 ---
+        function checkPuzzle(puzzleNumber) {
+            const index = puzzleNumber - 1;
+            const game = gameInstances[index];
+            
+            const isCorrect = game.checkAnswer();
+
+            if (isCorrect) {
+                solvedStatus[index] = true; // 正解状態を保存
+                
+                // ★ 追加: localStorage に状態を保存する
+                localStorage.setItem(STATUS_KEY, JSON.stringify(solvedStatus));
+                
+                // ★ 追加: ボタンの表示を「正解済み」に変更する
+                const btn = document.getElementById(`check-btn-${puzzleNumber}`);
+                if (btn) {
+                    btn.disabled = true;
+                    btn.textContent = '正解済み';
+                }
+            }
+
+            // 全問正解チェックを呼び出し
+            checkAllClear();
+        }
     </script>
     
-    <script src="new-game-logic.js"></script>
+    <script src="new-game-logic2.js"></script>
 </body>
 </html>
